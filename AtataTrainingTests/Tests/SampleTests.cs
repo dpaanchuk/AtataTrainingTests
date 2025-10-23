@@ -5,35 +5,35 @@ namespace AtataTrainingTests.Tests
     public sealed class SampleTests : UITestFixture
     {
         [Test]
-        public void Test_A()
+        public void RemoveProductAndVerifyTotalRowValues()
         {
-            Go.To<ProductsPage>()
-                .PageTitle.Should.Contain("Products")
-                .Products.Rows[i => i.Name == "Armchair"].DeleteUsingJsConfirm.Click()
+            var testData = new
+            {
+                products = "Products",
+                armchair = "Armchair"
+            };
+
+            var productsPage = Go.To<ProductsPage>()
+                .PageTitle.Should.Contain(testData.products)
+                .Products.Rows[i => i.Name == testData.armchair].DeleteUsingJsConfirm.Click()
                 .SwitchToAlertBox().Accept()
                 .AggregateAssert(x => x
-                .Products.Rows[i => i.Name == "Armchair"].Should.Not.BePresent()
-                .Products.Rows.Count.Should.Be(4));
+                    .Products.Rows[i => i.Name == testData.armchair].Should.Not.BePresent()
+                    .Products.Rows.Count.Should.Be(4));
 
-            var totalPrice = Go.On<ProductsPage>().Products.Rows.Select(i => i.Price.Value).ToList().Sum();
-            var totalAmount = Go.On<ProductsPage>().Products.Rows.Select(r => r.Amount.Value).ToList().Sum();
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(totalPrice, Is.EqualTo(570m), "Total Price is not correct");
-                Assert.That(totalAmount, Is.EqualTo(245), "Total Amount is not correct");
-            });
-
-            Go.To<BasePage>().PageTitle.Should.Be("Atata Sample App");
+            productsPage.Products.Rows.Select(i => i.Price.Value).ToList().Sum().ToSutSubject().Should.Equal(570m);
+            productsPage.Products.Rows.Select(r => r.Amount.Value).ToList().Sum().ToSutSubject().Should.Be(245);
         }
 
         [Test]
-        public void VerifySuccesfullLogin()
+        public void VerifySuccessfulLogin()
         {
-            Go.To<BasePage>().SignInTab()
-                .SignInWithUser("admin@mail.com", "abc123");
+            var testData = new
+            {
+                header = "Users"
+            };
 
-            Go.To<UsersPage>().PageTitle.Should.Be("Users"); // why context window is old - BasePage
+            Go.To<UsersPage>().Header.Should.Equal(testData.header);
         }
     }
 }

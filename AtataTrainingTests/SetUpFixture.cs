@@ -1,4 +1,6 @@
 ﻿
+using AtataTrainingTests.PageObjects;
+
 namespace AtataTrainingTests
 {
     [SetUpFixture]
@@ -17,7 +19,7 @@ namespace AtataTrainingTests
                 .UseCulture("en-US")
                 .UseAllNUnitFeatures();
 
-            //new LoginPage().SignInWithUser("admin@mail.com", "abc123");
+            Go.To<LoginPage>().SignInWithUser("admin@mail.com", "abc123");
 
             AtataContext.GlobalConfiguration.AutoSetUpDriverToUse();
         }
