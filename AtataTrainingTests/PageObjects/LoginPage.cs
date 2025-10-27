@@ -1,6 +1,4 @@
 ﻿using _ = AtataTrainingTests.PageObjects.LoginPage;
-using __ = AtataTrainingTests.PageObjects.UsersPage;
-
 
 namespace AtataTrainingTests.PageObjects
 {
@@ -13,9 +11,9 @@ namespace AtataTrainingTests.PageObjects
         public PasswordInput<_> Password { get; private set; }
 
         [FindByXPath("//button[text()='Sign In']")]
-        public ButtonDelegate<__ ,_> SignInBtn { get; private set; }
+        public ButtonDelegate<UsersPage ,_> SignInBtn { get; private set; }
 
-        public __ SignInWithUser(string email, string password)
+        public UsersPage SignInWithUser(string email, string password)
         {
             return Email.Set(email)
                 .Password.Set(password)
