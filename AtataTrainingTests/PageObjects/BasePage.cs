@@ -1,5 +1,4 @@
 ﻿using _ = AtataTrainingTests.PageObjects.BasePage;
-using __ = AtataTrainingTests.PageObjects.LoginPage;
 
 namespace AtataTrainingTests.PageObjects
 {
@@ -7,7 +6,7 @@ namespace AtataTrainingTests.PageObjects
     internal class BasePage : Page<_>
     {
         [FindByXPath("//a[@id='sign-in']")]
-        public ClickableDelegate<__, _> SignInTab { get; private set; }
+        public ClickableDelegate<LoginPage, _> SignInTab { get; private set; }
 
         public Button<_> SignUp { get; private set; }
     }

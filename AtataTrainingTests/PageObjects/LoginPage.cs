@@ -3,6 +3,7 @@
 namespace AtataTrainingTests.PageObjects
 {
     [Url("signin")]
+    [WaitForDocumentReadyState]
     internal class LoginPage : Page<_>
     {
         public TextInput<_> Email { get; private set; }
@@ -10,13 +11,13 @@ namespace AtataTrainingTests.PageObjects
         public PasswordInput<_> Password { get; private set; }
 
         [FindByXPath("//button[text()='Sign In']")]
-        public Button<_> SignInBtn { get; private set; }
+        public ButtonDelegate<UsersPage ,_> SignInBtn { get; private set; }
 
-        public _ SignInWithUser(string email, string password)
+        public UsersPage SignInWithUser(string email, string password)
         {
             return Email.Set(email)
                 .Password.Set(password)
-                .SignInBtn.Click();
+                .SignInBtn.ClickAndGo();
         }
     }
 }

@@ -3,7 +3,7 @@
     [Parallelizable(ParallelScope.Self)]
     public abstract class UITestFixture
     {
-        [SetUp]
+        //[SetUp]
         public void SetUp() =>
             AtataContext.Configure().Build();
 
